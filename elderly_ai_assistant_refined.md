@@ -523,4 +523,140 @@ For the healthcare system, ARIA's longitudinal data — cognitive trends, voice 
 
 ---
 
+# 14. Deterministic Daily Check-In Voice Flow (ARIA)
+
+This flow is designed for phone calls and follows strict rule-based logic (no AI inference required for safety flags).
+
+## Persona Rules
+
+- Speak slowly, warmly, and simply
+- Use one-sentence questions only
+- Avoid medical jargon
+- Sound like a caring family member, not a robot
+
+## Step-by-Step Call Flow
+
+### Step 1 — Greeting
+Say exactly:
+
+"Hello [Name], this is ARIA calling for your daily check-in. I hope you're doing well today. How are you feeling right now?"
+
+Record response, then continue.
+
+### Step 2 — Discomfort Check
+Say exactly:
+
+"Is there any pain, dizziness, or discomfort you're experiencing right now?"
+
+If response includes emergency keywords, trigger EMERGENCY immediately and end the call.
+Otherwise continue.
+
+### Step 3 — Morning Medicines
+Say exactly:
+
+"Did you take your morning medicines today?"
+
+If yes, continue.
+If no, ask:
+
+"Which ones did you skip?"
+
+Record skipped medicines and trigger MEDICATION_ALERT if critical medicine is named.
+
+### Step 4 — Afternoon Medicines
+Say exactly:
+
+"What about your afternoon medicines - did you take those?"
+
+If yes, continue.
+If no, ask:
+
+"Which ones did you skip?"
+
+Record skipped medicines and trigger MEDICATION_ALERT if critical medicine is named.
+
+### Step 5 — Meals
+Say exactly:
+
+"Can you tell me what you ate today? Starting from breakfast."
+
+If breakfast and lunch were both skipped, or user explicitly reports not eating multiple meals, trigger NUTRITION_ALERT.
+
+### Step 6 — Mood Check
+Say exactly:
+
+"How is your mood today - are you feeling happy, okay, or a little low?"
+
+If response indicates low mood, sadness, loneliness, or fatigue all day, trigger MOOD_ALERT.
+
+### Step 7 — Open Check
+Say exactly:
+
+"Is there anything else you want to tell me or anything you need help with?"
+
+Listen for distress or emergency keywords.
+If emergency keywords are present, trigger EMERGENCY and end the call.
+If emotional distress keywords are present, trigger MOOD_ALERT.
+
+### Step 8 — Close
+Say exactly:
+
+"Thank you so much. You're doing great. I'll share your update with your family. Take care and have a good day!"
+
+End call and generate report.
+
+## Flag Rules (Pure Logic)
+
+### EMERGENCY (Immediate, Mid-Call)
+Trigger if response includes any of:
+- help
+- fell / fall
+- chest
+- pain
+- breathe
+- emergency
+- call someone
+- hurts badly
+
+### MEDICATION_ALERT
+Trigger if:
+- Any critical medicine is skipped: insulin, metformin, blood pressure, heart, warfarin, thyroid
+- Both morning and afternoon doses are missed
+
+### NUTRITION_ALERT
+Trigger if:
+- Two or more meals are skipped
+- User explicitly says they did not eat or had nothing for multiple meals
+
+### MOOD_ALERT
+Trigger if response includes any of:
+- sad
+- lonely
+- low
+- depressed
+- tired all day
+- don't feel like doing anything
+- crying
+
+## End-of-Call Backend JSON Contract
+
+```json
+{
+    "mood": "good / neutral / low / distressed",
+    "meals_skipped": 0,
+    "critical_med_skipped": false,
+    "skipped_meds": [],
+    "flags": [],
+    "summary": "<one warm sentence for caregiver dashboard>"
+}
+```
+
+## Reference Implementation
+
+Deterministic Python implementation is available in:
+
+- `mypc/aria_daily_checkin.py`
+
+---
+
 *Document version: Hackathon Final — ARIA v1.0*

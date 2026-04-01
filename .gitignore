@@ -1,0 +1,4 @@
+/mypc
+.env
+call_logs/
+__pycache__/
