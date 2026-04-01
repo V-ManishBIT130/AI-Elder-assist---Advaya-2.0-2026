@@ -1,0 +1,20 @@
+{
+  "raw_total_files": 2880,
+  "raw_valid_filename": 2880,
+  "raw_readable": 2880,
+  "raw_unique_hashes": 1439,
+  "duplicates_removed": 1441,
+  "rejected_files": 1441,
+  "clean_total_files": 1439,
+  "balanced_total_files": 1152,
+  "balance_summary": {
+    "class_counts": {
+      "neutral": 288,
+      "happy": 383,
+      "low": 384,
+      "distressed": 384
+    },
+    "selected_per_class": 288,
+    "balanced_total": 1152
+  }
+}
