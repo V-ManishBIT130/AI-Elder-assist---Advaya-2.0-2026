@@ -1,0 +1,17 @@
+mobile_frontend_designs
+web_frontend_designs
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build and cache artifacts
+dist/
+build/
+.expo/
+.expo-shared/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
