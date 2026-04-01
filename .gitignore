@@ -1,4 +1,29 @@
+<<<<<<< HEAD
 /mypc
 .env
 call_logs/
 __pycache__/
+=======
+mobile_frontend_designs
+web_frontend_designs
+NEW\model3_preprocessing\processed
+NEW\model3_preprocessing\reports
+NEW\model3_preprocessing\processed
+NEW\model3_preprocessing\processed\balanced_16k_mono
+NEW\model3_preprocessing\processed\clean_16k_mono
+# Dependencies
+node_modules/
+**/node_modules/
+voice dataset ravdess
+# Build and cache artifacts
+dist/
+build/
+.expo/
+.expo-shared/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+NEW/model3_preprocessing/processed/balanced_16k_mono/distressed/03-01-05-01-01-01-01.wav
+>>>>>>> 784092366453c5fc4cf129d8fdcb922ce1a5d8cc
